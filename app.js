@@ -1,5 +1,4 @@
 // import core modules
-const fs = require('fs');
 const express = require('express');
 const morgan = require('morgan');
 
@@ -24,15 +23,8 @@ app.use((req, res, next) => {
   next();
 })
 
-// Route Handlers
-
 // Routes
-
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter)
 
-// Start Server
-const port = 3000;
-app.listen(port, () => {
-  console.log(`App running on port ${port}...`);
-});
+module.exports = app;
