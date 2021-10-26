@@ -10,22 +10,21 @@ exports.checkID = (req, res, next, val) => {
   if (req.params.id * 1 > tours.length) {
     return res.status(404).json({
       status: 'fail',
-      message: 'Invalid ID'
+      message: 'Invalid ID',
     });
   }
   next();
 }
 
 exports.checkBody = (req, res, next) => {
-  console.log('Tour name is:', req.body.name, ', Tour price is: ', req.body.price);
   if (!req.body.name || !req.body.price) {
     return res.status(400).json({
       status: 'fail',
-      message: 'Missing name or price'
+      message: 'Missing name or price',
     });
   }
   next();
-}
+};
 
 exports.getAllTours = (req, res) => {
   console.log(req.requestTime);
@@ -34,23 +33,24 @@ exports.getAllTours = (req, res) => {
     requestedAt: req.requestTime,
     results: tours.length,
     data: {
-      tours
-    }
-  })
-}
+      tours,
+    },
+  });
+};
 
 exports.getTour = (req, res) => {
   const id = req.params.id * 1;
-  const tour = tours.find(el => el.id === id);
+  const tour = tours.find( el => el.id === id);
 
   res.status(200).json({
     status: 'success',
     results: tours.length,
     data: {
-      tour
-    }
-  })
-}
+      tour,
+    },
+  });
+};
+
 exports.createTour = (req, res) => {
   const newId = tours[tours.length - 1].id + 1;
   const newTour = Object.assign({ id: newId}, req.body);
@@ -64,26 +64,24 @@ exports.createTour = (req, res) => {
       res.status(201).json({
         status: 'success',
         data: {
-          tour: newTour
-        }
-      })
-  })
-}
+          tour: newTour,
+        },
+      });
+  });
+};
 
 exports.updateTour = (req, res) => {
-
   res.status(200).json({
     status: 'success',
     data: {
-      tour: '<Updated tour here..>'
-    }
-  })
-}
+      tour: '<Updated tour here..>',
+    },
+  });
+};
 
 exports.deleteTour = (req, res) => {
-
   res.status(204).json({
     status: 'success',
-    data: null
-  })
-}
+    data: null,
+  });
+};
