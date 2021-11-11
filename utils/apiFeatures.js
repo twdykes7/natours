@@ -1,12 +1,12 @@
 class APIFeatures {
-  constructor(query, queryStr) {
+  constructor(query, queryString) {
     this.query = query;
-    this.queryStr = queryStr;
+    this.queryString = queryString;
   }
 
   filter() {
     // eslint-disable-next-line node/no-unsupported-features/es-syntax
-    const queryObj = { ...this.queryStr };
+    const queryObj = { ...this.queryString };
     //Filtering
     const excludedFields = ['page', 'sort', 'limit', 'fields'];
     excludedFields.forEach((el) => {
@@ -23,8 +23,8 @@ class APIFeatures {
   }
 
   sort() {
-    if (this.queryStr) {
-      const sortBy = this.queryStr.sort.split(',').join(' ');
+    if (this.queryString.sort) {
+      const sortBy = this.queryString.sort.split(',').join(' ');
       this.query = this.query.sort(sortBy);
     } else {
       this.query = this.query.sort('-createdAt');
@@ -33,8 +33,8 @@ class APIFeatures {
   }
 
   limitFields() {
-    if (this.queryStr.fields) {
-      const fields = this.queryStr.fields.split(',').join(' ');
+    if (this.queryString.fields) {
+      const fields = this.queryString.fields.split(',').join(' ');
       this.query = this.query.select(fields);
     } else {
       this.query = this.query.select('-__v');
@@ -43,8 +43,8 @@ class APIFeatures {
   }
 
   paginate() {
-    const page = this.queryStr.page * 1 || 1;
-    const limit = this.queryStr.limit * 1 || 100;
+    const page = this.queryString.page * 1 || 1;
+    const limit = this.queryString.limit * 1 || 100;
     const skip = (page - 1) * limit;
 
     this.query = this.query.skip(skip).limit(limit);
